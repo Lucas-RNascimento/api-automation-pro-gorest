@@ -1,0 +1,122 @@
+_type: export
+__export_format: 4
+__export_date: 2025-01-01T00:00:00.000Z
+__export_source: insomnia.desktop.app
+
+resources:
+  # ------------------------------
+  # Environment
+  # ------------------------------
+  - _id: env_gorest
+    parentId: null
+    modified: 0
+    created: 0
+    _type: environment
+    name: GoRest Environment
+    data:
+      base_url: "https://gorest.co.in/public/v2"
+      token: ""
+      user_id: ""
+
+  # ------------------------------
+  # Workspace
+  # ------------------------------
+  - _id: wrk_gorest_users
+    parentId: null
+    name: GoRest - Users
+    description: API Users collection (CRUD)
+    scope: collection
+    _type: workspace
+
+  # ------------------------------
+  # Folder: Users
+  # ------------------------------
+  - _id: fld_users
+    parentId: wrk_gorest_users
+    name: Users
+    _type: request_group
+
+  # ------------------------------
+  # Request 1: List Users
+  # ------------------------------
+  - _id: req_list_users
+    parentId: fld_users
+    name: List Users
+    _type: request
+    method: GET
+    url: "{{ base_url }}/users"
+    headers:
+      - name: Authorization
+        value: "Bearer {{ token }}"
+
+  # ------------------------------
+  # Request 2: Create User
+  # ------------------------------
+  - _id: req_create_user
+    parentId: fld_users
+    name: Create User
+    _type: request
+    method: POST
+    url: "{{ base_url }}/users"
+    headers:
+      - name: Authorization
+        value: "Bearer {{ token }}"
+      - name: Content-Type
+        value: application/json
+    body:
+      mimeType: application/json
+      text: |
+        {
+          "name": "Lucas QA Automation",
+          "email": "lucas.qa{{ timestamp }}@mail.com",
+          "gender": "male",
+          "status": "active"
+        }
+
+  # ------------------------------
+  # Request 3: Get User by ID
+  # ------------------------------
+  - _id: req_get_user
+    parentId: fld_users
+    name: Get User by ID
+    _type: request
+    method: GET
+    url: "{{ base_url }}/users/{{ user_id }}"
+    headers:
+      - name: Authorization
+        value: "Bearer {{ token }}"
+
+  # ------------------------------
+  # Request 4: Update User
+  # ------------------------------
+  - _id: req_update_user
+    parentId: fld_users
+    name: Update User
+    _type: request
+    method: PUT
+    url: "{{ base_url }}/users/{{ user_id }}"
+    headers:
+      - name: Authorization
+        value: "Bearer {{ token }}"
+      - name: Content-Type
+        value: application/json
+    body:
+      mimeType: application/json
+      text: |
+        {
+          "name": "Lucas QA Updated",
+          "status": "inactive"
+        }
+
+  # ------------------------------
+  # Request 5: Delete User
+  # ------------------------------
+  - _id: req_delete_user
+    parentId: fld_users
+    name: Delete User
+    _type: request
+    method: DELETE
+    url: "{{ base_url }}/users/{{ user_id }}"
+    headers:
+      - name: Authorization
+        value: "Bearer {{ token }}"
